@@ -1,1 +1,21 @@
-<p>shopping-list works!</p>
+<div class="container">
+    <div>
+        <h3>Shopping List <fa-icon [icon]="faCoffee" (click)="additem()"></fa-icon></h3>
+        <ul id="listOfItem">
+            <li *ngFor="let item of sortDict(list);let i=index">
+                <input type="checkbox"  (change)="itemChecked(item,list,listChecked)">
+                <input value="{{item.quantity}} {{item.unit}} {{item.name}}" style="border: none;width: 50%;" placeholder="Quantity Unit ItemName" (change)="itemValueChange(item,$event)" >
+            </li>
+        </ul>
+    </div>
+    <div>
+        <hr>
+        <h3>Completed List</h3>
+        <ul>
+            <li *ngFor="let item of sortDict(listChecked);let i=index">
+                <input type="checkbox" checked (change)="itemChecked(item,listChecked,list)">
+                {{item.quantity}} {{item.unit}} {{item.name}} <fa-icon [icon]="fadumpster" (click)="itemdelete(item)"></fa-icon>
+            </li>
+        </ul>
+    </div>
+</div>

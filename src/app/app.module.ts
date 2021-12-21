@@ -8,6 +8,8 @@ import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { RecipeListComponent } from './recipe-list/recipe-list.component';
 import { SidebarComponent } from './recipe-list/sidebar/sidebar.component';
 import { DisplayRecipeComponent } from './recipe-list/display-recipe/display-recipe.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {RecipeService } from './recipe.service'
 
 @NgModule({
   declarations: [
@@ -20,9 +22,10 @@ import { DisplayRecipeComponent } from './recipe-list/display-recipe/display-rec
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    FontAwesomeModule
   ],
-  providers: [],
+  providers: [RecipeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

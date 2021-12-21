@@ -1,19 +1,30 @@
-
-<!-- <img src={{itemToDisplay.imagelink}}> -->
-<img src={{itemToDisplay.imagelink}}  width="70%" height="400px">
-<div>
-    <u><h3>Incridents:</h3></u>
-    <ul>
-    <li *ngFor=" let incrident of itemToDisplay.incridents">
-        {{incrident}}
-    </li>
-    </ul>
+<div class="row">
+    <div><h3>{{itemToDisplay.name}}</h3></div>
 </div>
-<div>
-    <u><h3>Incridents:</h3></u>
-    <ol>
-    <li *ngFor=" let incrident of itemToDisplay.methods">
-        {{incrident}}
-    </li>
-    </ol>
+<div class="row">
+    <div class="col">
+        <div>
+            <img src={{itemToDisplay.imagelink}} width="100%" height="400px">
+            
+            <button class="btn btn-primary my-3" (click)="addIncridentsToList()">Add Ingredients to Shopping List.</button>
+        </div>
+    </div>
+    <div class="col">
+        <u>
+            <h3>Ingredients:</h3>
+        </u>
+        <ul>
+            <li *ngFor=" let incrident of itemToDisplay.incridents">
+                {{incrident}}
+            </li>
+        </ul>
+        <u>
+            <h3>Method:</h3>
+        </u>
+        <ol>
+            <li *ngFor=" let incrident of itemToDisplay.methods">
+                {{incrident}}
+            </li>
+        </ol>
+    </div>
 </div>
