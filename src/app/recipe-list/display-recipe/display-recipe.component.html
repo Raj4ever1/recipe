@@ -1,0 +1,19 @@
+
+<!-- <img src={{itemToDisplay.imagelink}}> -->
+<img src={{itemToDisplay.imagelink}}  width="70%" height="400px">
+<div>
+    <u><h3>Incridents:</h3></u>
+    <ul>
+    <li *ngFor=" let incrident of itemToDisplay.incridents">
+        {{incrident}}
+    </li>
+    </ul>
+</div>
+<div>
+    <u><h3>Incridents:</h3></u>
+    <ol>
+    <li *ngFor=" let incrident of itemToDisplay.methods">
+        {{incrident}}
+    </li>
+    </ol>
+</div>

@@ -1,0 +1,10 @@
+<div class="d-flex flex-column flex-shrink-0  bg-light" style="width: 180px;">
+    <ul class="nav nav-pills flex-column mb-auto">
+      <li *ngFor="let item of itemlist;let i=index" (click)="selectrecipe(i)">
+        <a href="#" class="nav-link link-dark">
+          <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+          {{ item.name }}
+        </a>
+      </li>
+    </ul>
+ </div>
