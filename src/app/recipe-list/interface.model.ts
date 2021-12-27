@@ -3,4 +3,5 @@ export interface item{
     imagelink:string
     incridents:string[]
     methods:string[]
+    id:string
   }

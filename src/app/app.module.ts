@@ -9,7 +9,8 @@ import { RecipeListComponent } from './recipe-list/recipe-list.component';
 import { SidebarComponent } from './recipe-list/sidebar/sidebar.component';
 import { DisplayRecipeComponent } from './recipe-list/display-recipe/display-recipe.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import {RecipeService } from './recipe.service'
+import {RecipeService } from './recipe.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -17,13 +18,15 @@ import {RecipeService } from './recipe.service'
     ShoppingListComponent,
     RecipeListComponent,
     SidebarComponent,
-    DisplayRecipeComponent
+    DisplayRecipeComponent,
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    HttpClientModule
   ],
   providers: [RecipeService],
   bootstrap: [AppComponent]

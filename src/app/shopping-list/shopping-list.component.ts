@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { faPlus, faDumpster } from '@fortawesome/free-solid-svg-icons';
 import { shoppingList } from './interface.model';
@@ -10,38 +11,32 @@ import { RecipeService } from '../recipe.service';
 export class ShoppingListComponent implements OnInit {
   listChecked: shoppingList[] = []
   list: shoppingList[] = []
-  constructor(private recipeService: RecipeService) { }
+  constructor(private recipeService: RecipeService,
+    private http: HttpClient) { }
   data: any
   ngOnInit(): void {
+
     let listCheckedcoming = this.recipeService.completedList;
-    if (typeof (listCheckedcoming)!='undefined'){this.listChecked=listCheckedcoming}
-    let listcoming:string[] = this.recipeService.ingredientList;
-    if (typeof (listcoming)!='undefined'){
-    listcoming.forEach(element => {
-      let str = element.trim().split(' ');
-      console.log(str);
-      if (str.length > 2 && String(Number(str[0])) != 'NaN') {
-        this.list.push({
-          quantity: Number(str[0]),
-          unit: str[1],
-          name: str.splice(2).join(' ').toString(),
-        });
-      }
-    })}
+    if (typeof (listCheckedcoming) != 'undefined') { this.listChecked = listCheckedcoming }
+    let listcoming: string[] = this.recipeService.ingredientList;
+    if (typeof (listcoming) != 'undefined') {
+      listcoming.forEach(element => {
+        let str = element.trim().split(' ');
+        console.log(str);
+        if (str.length > 2 && String(Number(str[0])) != 'NaN') {
+          this.list.push({
+            quantity: Number(str[0]),
+            unit: str[1],
+            name: str.splice(2).join(' ').toString(),
+          });
+        }
+      })
+    }
+
   }
   faCoffee = faPlus;
   fadumpster = faDumpster;
-  // = [{
-  //   quantity: 10,
-  //   unit: 'kg',
-  //   name: 'Rice'
-  // },
-  // {
-  //   quantity: 5,
-  //   unit: 'Liters',
-  //   name: 'Cooking Oil'
-  // }
-  // ]
+
   sortDict(dict) {
     if (typeof (dict) != 'undefined' && dict.length > 1) {
       return dict.sort((item1, item2) => {
