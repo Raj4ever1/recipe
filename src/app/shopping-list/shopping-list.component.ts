@@ -11,18 +11,19 @@ import { RecipeService } from '../recipe.service';
 export class ShoppingListComponent implements OnInit {
   listChecked: shoppingList[] = []
   list: shoppingList[] = []
-  constructor(private recipeService: RecipeService,
-    private http: HttpClient) { }
-  data: any
-  ngOnInit(): void {
+  faCoffee = faPlus;
+  fadumpster = faDumpster;
+  data: any;
 
+  constructor(private recipeService: RecipeService,private http: HttpClient) { }
+
+  ngOnInit(): void {
     let listCheckedcoming = this.recipeService.completedList;
     if (typeof (listCheckedcoming) != 'undefined') { this.listChecked = listCheckedcoming }
     let listcoming: string[] = this.recipeService.ingredientList;
     if (typeof (listcoming) != 'undefined') {
       listcoming.forEach(element => {
         let str = element.trim().split(' ');
-        console.log(str);
         if (str.length > 2 && String(Number(str[0])) != 'NaN') {
           this.list.push({
             quantity: Number(str[0]),
@@ -34,8 +35,6 @@ export class ShoppingListComponent implements OnInit {
     }
 
   }
-  faCoffee = faPlus;
-  fadumpster = faDumpster;
 
   sortDict(dict) {
     if (typeof (dict) != 'undefined' && dict.length > 1) {
@@ -61,8 +60,6 @@ export class ShoppingListComponent implements OnInit {
     return 0
   }
 
-
-
   itemChecked(itemNo: shoppingList, from, to) {
     from.forEach((value, index) => {
       if (value === itemNo) {
@@ -71,14 +68,10 @@ export class ShoppingListComponent implements OnInit {
       }
     });
     this.recipeService.completedList = this.listChecked;
-    console.log(this.listChecked)
   }
-
 
   itemValueChange(item, $event) {
     let str = ($event.target.value).split(' ');
-    console.log(str);
-    console.log();
     this.list.forEach((value, index) => {
       if (value === item) {
         this.list.splice(index, 1);
@@ -92,7 +85,6 @@ export class ShoppingListComponent implements OnInit {
 
   }
 
-
   addItem(e) {
     let str = e.target.value.split(' ');
     if (str.length > 2 && String(Number(str[0])) != 'NaN') {
@@ -104,7 +96,6 @@ export class ShoppingListComponent implements OnInit {
       document.getElementById("tempLi").remove();
     }
   }
-
 
   additem() {
     let checkbox = document.createElement('input')
@@ -132,4 +123,5 @@ export class ShoppingListComponent implements OnInit {
       }
     })
   }
+
 }
