@@ -1,14 +1,15 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { faPlus, faDumpster } from '@fortawesome/free-solid-svg-icons';
 import { shoppingList } from './interface.model';
 import { RecipeService } from '../recipe.service';
+import { delay } from 'rxjs';
 @Component({
   selector: 'app-shopping-list',
   templateUrl: './shopping-list.component.html',
   styleUrls: ['./shopping-list.component.css']
 })
-export class ShoppingListComponent implements OnInit {
+export class ShoppingListComponent implements OnInit{
   listChecked: shoppingList[] = []
   list: shoppingList[] = []
   faCoffee = faPlus;
@@ -17,29 +18,24 @@ export class ShoppingListComponent implements OnInit {
 
   constructor(private recipeService: RecipeService,private http: HttpClient) { }
 
+  listupdate():void {
+    this.http.delete('https://angular-learning-8a9ed-default-rtdb.firebaseio.com/posts.json').subscribe((e)=>{e});
+    this.http.post('https://angular-learning-8a9ed-default-rtdb.firebaseio.com/posts.json',this.list).subscribe((e)=>{e});
+  }
+
   ngOnInit(): void {
     let listCheckedcoming = this.recipeService.completedList;
     if (typeof (listCheckedcoming) != 'undefined') { this.listChecked = listCheckedcoming }
-    let listcoming: string[] = this.recipeService.ingredientList;
-    if (typeof (listcoming) != 'undefined') {
-      listcoming.forEach(element => {
-        let str = element.trim().split(' ');
-        if (str.length > 2 && String(Number(str[0])) != 'NaN') {
-          this.list.push({
-            quantity: Number(str[0]),
-            unit: str[1],
-            name: str.splice(2).join(' ').toString(),
-          });
-        }
-      })
-    }
-
+    this.list= this.recipeService.ingredientList;
+    this.listupdate();
   }
 
   sortDict(dict) {
+    
     if (typeof (dict) != 'undefined' && dict.length > 1) {
       return dict.sort((item1, item2) => {
         return this.compareObjects(item1, item2, 'name')
+        
       })
     }
     else {
@@ -68,6 +64,7 @@ export class ShoppingListComponent implements OnInit {
       }
     });
     this.recipeService.completedList = this.listChecked;
+    this.listupdate();
   }
 
   itemValueChange(item, $event) {
@@ -94,6 +91,7 @@ export class ShoppingListComponent implements OnInit {
         name: str.splice(2).join(' ').toString(),
       });
       document.getElementById("tempLi").remove();
+      this.listupdate();
     }
   }
 
@@ -122,6 +120,7 @@ export class ShoppingListComponent implements OnInit {
         this.listChecked.splice(index, 1);
       }
     })
+    this.listupdate();
   }
 
 }

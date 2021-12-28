@@ -8,11 +8,13 @@ import { HttpClient } from '@angular/common/http';
 })
 export class RecipeService {
 
-  ingredientList:string[]
-  completedList:shoppingList[]
+  ingredientList:shoppingList[]=[]
+  completedList:shoppingList[]=[]
   itemlist: item[]=[];
+
   constructor(private http:HttpClient) { 
     this.getrecipe();
+    this.getingredient();
   }
 
   getrecipe(){
@@ -25,5 +27,16 @@ export class RecipeService {
       };
     }); 
   };
-  
+ 
+  getingredient(){
+    this.http.get('https://angular-learning-8a9ed-default-rtdb.firebaseio.com/posts.json').subscribe(
+      response=>{
+      for(let key in response){
+        if (response.hasOwnProperty(key)){
+          this.ingredientList=response[key];
+          console.log(this.ingredientList);
+        };
+      };
+    }); 
+  }
 }

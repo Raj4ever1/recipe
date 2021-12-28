@@ -1,5 +1,6 @@
 <div class="d-flex flex-column flex-shrink-0  bg-light" style="width: 210px;">
     <ul class="nav  flex-column ">
+      <li><a href="#" class="nav-link link-dark"><u>Add Recipe</u></a></li>
       <li *ngFor="let item of itemlist;let i=index" (click)="selectrecipe(i)">
         <a href="#" class="nav-link link-dark">
           {{ item.name }}
