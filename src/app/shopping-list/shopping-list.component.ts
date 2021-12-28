@@ -9,33 +9,33 @@ import { delay } from 'rxjs';
   templateUrl: './shopping-list.component.html',
   styleUrls: ['./shopping-list.component.css']
 })
-export class ShoppingListComponent implements OnInit{
-  listChecked: shoppingList[] = []
-  list: shoppingList[] = []
+export class ShoppingListComponent implements OnInit {
+  listChecked: shoppingList[] = [];
+  list: shoppingList[] = [];
   faCoffee = faPlus;
   fadumpster = faDumpster;
   data: any;
 
-  constructor(private recipeService: RecipeService,private http: HttpClient) { }
+  constructor(private recipeService: RecipeService, private http: HttpClient) { }
 
-  listupdate():void {
-    this.http.delete('https://angular-learning-8a9ed-default-rtdb.firebaseio.com/posts.json').subscribe((e)=>{e});
-    this.http.post('https://angular-learning-8a9ed-default-rtdb.firebaseio.com/posts.json',this.list).subscribe((e)=>{e});
+  listupdate(): void {
+    this.http.delete(this.recipeService.ingredientUrl).subscribe((e) => { e });
+    this.http.post(this.recipeService.ingredientUrl, this.list).subscribe((e) => { e });
   }
 
   ngOnInit(): void {
     let listCheckedcoming = this.recipeService.completedList;
     if (typeof (listCheckedcoming) != 'undefined') { this.listChecked = listCheckedcoming }
-    this.list= this.recipeService.ingredientList;
+    this.list = this.recipeService.ingredientList;
     this.listupdate();
   }
 
   sortDict(dict) {
-    
+
     if (typeof (dict) != 'undefined' && dict.length > 1) {
       return dict.sort((item1, item2) => {
         return this.compareObjects(item1, item2, 'name')
-        
+
       })
     }
     else {
@@ -46,7 +46,6 @@ export class ShoppingListComponent implements OnInit{
   compareObjects(object1, object2, key) {
     const obj1 = object1[key].toUpperCase()
     const obj2 = object2[key].toUpperCase()
-
     if (obj1 < obj2) {
       return -1
     }

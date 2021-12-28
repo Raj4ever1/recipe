@@ -1,6 +1,5 @@
 import { Component, Input, OnInit,Output,EventEmitter } from '@angular/core';
 import { item } from '../interface.model';
-
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',

@@ -8,35 +8,36 @@ import { HttpClient } from '@angular/common/http';
 })
 export class RecipeService {
 
-  ingredientList:shoppingList[]=[]
-  completedList:shoppingList[]=[]
-  itemlist: item[]=[];
+  ingredientList: shoppingList[] = []
+  completedList: shoppingList[] = []
+  itemlist: item[] = [];
+  recipeUrl = 'https://angular-learning-8a9ed-default-rtdb.firebaseio.com/recipe.json'
+  ingredientUrl = 'https://angular-learning-8a9ed-default-rtdb.firebaseio.com/posts.json'
 
-  constructor(private http:HttpClient) { 
+  constructor(private http: HttpClient) {
     this.getrecipe();
     this.getingredient();
   }
 
-  getrecipe(){
-    this.http.get('https://angular-learning-8a9ed-default-rtdb.firebaseio.com/recipe.json').subscribe(
-      response=>{
-      for(let key in response){
-        if (response.hasOwnProperty(key)){
-          this.itemlist.push({...response[key],id:key});
+  getrecipe() {
+    this.http.get(this.recipeUrl).subscribe(
+      response => {
+        for (let key in response) {
+          if (response.hasOwnProperty(key)) {
+            this.itemlist.push({ ...response[key], id: key });
+          };
         };
-      };
-    }); 
+      });
   };
- 
-  getingredient(){
-    this.http.get('https://angular-learning-8a9ed-default-rtdb.firebaseio.com/posts.json').subscribe(
-      response=>{
-      for(let key in response){
-        if (response.hasOwnProperty(key)){
-          this.ingredientList=response[key];
-          console.log(this.ingredientList);
+
+  getingredient() {
+    this.http.get(this.ingredientUrl).subscribe(
+      response => {
+        for (let key in response) {
+          if (response.hasOwnProperty(key)) {
+            this.ingredientList = response[key];
+          };
         };
-      };
-    }); 
+      });
   }
 }
