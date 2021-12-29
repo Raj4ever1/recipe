@@ -1,22 +1,23 @@
 <div>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#" (click)="currentPage='Home'">{{ title }}</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <a class="navbar-brand" [routerLink]="['/']">{{ title }}</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#" (click)="currentPage='shopping'">Shopping List</a>
+          <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link active" aria-current="page" [routerLink]="['/shoppingList']">Shopping List</a>
           </li>
-          
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#" (click)="currentPage='recipe';">Recipe List</a>
+
+          <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link active" aria-current="page" [routerLink]="['/recipe']">Recipe List</a>
           </li>
-          
-          
-          
+
+
+
         </ul>
         <form class="d-flex">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -27,10 +28,11 @@
   </nav>
 </div>
 <div>
-  <div *ngIf="currentPage=='shopping'">
+  <!-- <div *ngIf="currentPage=='shopping'">
     <app-shopping-list></app-shopping-list>
   </div>
   <div *ngIf="currentPage=='recipe'">
     <app-recipe-list></app-recipe-list>
-  </div>
+  </div> -->
+  <router-outlet></router-outlet>
 </div>

@@ -16,7 +16,7 @@ export class RecipeListComponent implements OnInit {
   constructor(private http:HttpClient,private recipeService:RecipeService) { }
 
   ngOnInit(): void {
-    this.itemlist=this.recipeService.itemlist;
+    this.itemlist=this.recipeService.sortDict(this.recipeService.itemlist,'name');
   }
 
   reciveSelectedRecipe($event){

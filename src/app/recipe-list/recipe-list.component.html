@@ -3,7 +3,7 @@
         <app-sidebar  (recipeclick)="reciveSelectedRecipe($event)" [itemlist]="itemlist"></app-sidebar>
     </div>
     <div class="col-md-10" *ngIf="returnType(itemToDisplay)!=='undefined'">
-         <app-display-recipe [itemToDisplay]="itemToDisplay"></app-display-recipe>
+         <router-outlet></router-outlet>
     </div>
     
 </div>

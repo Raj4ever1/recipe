@@ -6,53 +6,20 @@ import { RecipeService } from '../recipe.service';
 import { delay } from 'rxjs';
 @Component({
   selector: 'app-shopping-list',
-  templateUrl: './shopping-list.component.html',
+  templateUrl:'./shopping-list.component.html',
   styleUrls: ['./shopping-list.component.css']
 })
 export class ShoppingListComponent implements OnInit {
-  listChecked: shoppingList[] = [];
-  list: shoppingList[] = [];
   faCoffee = faPlus;
   fadumpster = faDumpster;
   data: any;
 
-  constructor(private recipeService: RecipeService, private http: HttpClient) { }
+  constructor(public recipeService: RecipeService, private http: HttpClient) { }
 
-  listupdate(): void {
-    this.http.delete(this.recipeService.ingredientUrl).subscribe((e) => { e });
-    this.http.post(this.recipeService.ingredientUrl, this.list).subscribe((e) => { e });
-  }
+  
 
   ngOnInit(): void {
-    let listCheckedcoming = this.recipeService.completedList;
-    if (typeof (listCheckedcoming) != 'undefined') { this.listChecked = listCheckedcoming }
-    this.list = this.recipeService.ingredientList;
-    this.listupdate();
-  }
-
-  sortDict(dict) {
-
-    if (typeof (dict) != 'undefined' && dict.length > 1) {
-      return dict.sort((item1, item2) => {
-        return this.compareObjects(item1, item2, 'name')
-
-      })
-    }
-    else {
-      return dict
-    }
-  }
-
-  compareObjects(object1, object2, key) {
-    const obj1 = object1[key].toUpperCase()
-    const obj2 = object2[key].toUpperCase()
-    if (obj1 < obj2) {
-      return -1
-    }
-    if (obj1 > obj2) {
-      return 1
-    }
-    return 0
+    this.recipeService.setingredient();
   }
 
   itemChecked(itemNo: shoppingList, from, to) {
@@ -62,35 +29,34 @@ export class ShoppingListComponent implements OnInit {
         to.push(itemNo);
       }
     });
-    this.recipeService.completedList = this.listChecked;
-    this.listupdate();
+    this.recipeService.updateIngridents();
   }
 
   itemValueChange(item, $event) {
     let str = ($event.target.value).split(' ');
-    this.list.forEach((value, index) => {
+    this.recipeService.ingredientList.forEach((value, index) => {
       if (value === item) {
-        this.list.splice(index, 1);
-        this.list.push({
+        this.recipeService.ingredientList.splice(index, 1);
+        this.recipeService.ingredientList.push({
           quantity: Number(str[0]),
           unit: str[1],
           name: str.splice(2).join(' ').toString(),
         });
       }
     });
-
+    this.recipeService.updateIngridents();
   }
 
   addItem(e) {
     let str = e.target.value.split(' ');
     if (str.length > 2 && String(Number(str[0])) != 'NaN') {
-      this.list.push({
+      this.recipeService.ingredientList.push({
         quantity: Number(str[0]),
         unit: str[1],
         name: str.splice(2).join(' ').toString(),
       });
       document.getElementById("tempLi").remove();
-      this.listupdate();
+      this.recipeService.updateIngridents();
     }
   }
 
@@ -114,12 +80,12 @@ export class ShoppingListComponent implements OnInit {
   }
 
   itemdelete(item) {
-    this.listChecked.forEach((value, index) => {
+    this.recipeService.completedList.forEach((value, index) => {
       if (value === item) {
-        this.listChecked.splice(index, 1);
+        this.recipeService.completedList.splice(index, 1);
       }
     })
-    this.listupdate();
+    this.recipeService.updateIngridents();
   }
 
 }

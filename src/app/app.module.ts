@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
@@ -11,6 +11,14 @@ import { DisplayRecipeComponent } from './recipe-list/display-recipe/display-rec
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {RecipeService } from './recipe.service';
 import { HttpClientModule } from '@angular/common/http';
+import { Route, RouterModule } from '@angular/router';
+
+const route:Route[]=[
+  {path:'recipe', component:RecipeListComponent,children:[
+    {path:':id',component:DisplayRecipeComponent}
+  ]},
+  {path:'shoppingList', component:ShoppingListComponent},
+]
 
 @NgModule({
   declarations: [
@@ -26,7 +34,8 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     FormsModule,
     FontAwesomeModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule.forRoot(route)
   ],
   providers: [RecipeService],
   bootstrap: [AppComponent]
