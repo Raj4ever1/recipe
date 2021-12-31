@@ -1,0 +1,68 @@
+                   
+<form [formGroup]="addRecipeForm" class="my-3" (ngSubmit)="onSubmit()">
+    <table>
+        <tr>
+            <td>Name:</td>
+            <td>
+                <input
+                    ngModel
+                    name="name" 
+                >
+                <span *ngIf="!addRecipeForm.get('name').valid && addRecipeForm.get('name').touched" style="color: red;">...enter name...</span>
+            </td>
+        </tr>
+        <tr>
+            <td>ImageUrl:</td>
+            <td>
+                <input
+                    ngModel
+                    name="imagelink" 
+                >
+                <span *ngIf="!addRecipeForm.get('imagelink').valid && addRecipeForm.get('imagelink').touched" style="color: red;">...enter url...</span>
+            </td>
+        </tr>
+        <tr>
+            <td>Ingridents:</td>
+            <td formArrayName="incridents">
+                <div *ngFor="let ingrident of getingridentcontrols('ingrident'),let i=index">
+                    <div [formGroupName]=i>
+                        <input [formControlName]='"quantity"' placeholder="Amount" type="number">
+                        <input [formControlName]="'unit'" placeholder="unit">
+                        <input [formControlName]="'item'" placeholder="Item">
+                        <input type="button" (click)="deleteIngrident('ingrident',i)" value="Delete" class="btn-danger" *ngIf="getingridentcontrols('ingrident').length>1">
+                    </div>
+                </div>
+                <input (click)="addIngridents('ingrident')" class="btn" 
+                type="button" 
+                value="Add Ingridents">
+                
+            </td>
+        </tr>
+        <tr>
+            <td>Method:</td>
+            <td formArrayName="methods">
+                <div *ngFor="let ingrident of getingridentcontrols('method'),let i=index">
+                    <textarea type="text" [formControlName]=i cols=50></textarea>
+                    <input type="button" (click)="deleteIngrident('methods',i)" value="Delete" class="btn-danger" *ngIf="getingridentcontrols('method').length>1">                 
+                </div>
+                <input (click)="addIngridents('methods')" class="btn" 
+                type="button" 
+                value="Add Method">
+                
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <button 
+                    type="submit" 
+                   [disabled]="!addRecipeForm.valid || loading"
+                    class="btn btn-primary" >
+                    <div class="spinner-border" role="status" style="height: 15px;width: 15px;" *ngIf="loading">
+                        <span class="sr-only"></span>
+                      </div>
+                       Add Recipe</button>
+            </td>
+        </tr>
+    </table>
+</form>

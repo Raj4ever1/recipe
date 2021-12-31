@@ -1,6 +1,6 @@
 import { NgModule, Component } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,10 +12,12 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {RecipeService } from './recipe.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Route, RouterModule } from '@angular/router';
+import { AddRecipeComponent } from './recipe-list/add-recipe/add-recipe.component';
 
 const route:Route[]=[
   {path:'recipe', component:RecipeListComponent,children:[
-    {path:':id',component:DisplayRecipeComponent}
+    {path:'addRecipe',component:AddRecipeComponent},
+    {path:'display/:id',component:DisplayRecipeComponent},
   ]},
   {path:'shoppingList', component:ShoppingListComponent},
 ]
@@ -27,12 +29,14 @@ const route:Route[]=[
     RecipeListComponent,
     SidebarComponent,
     DisplayRecipeComponent,
+    AddRecipeComponent,
     
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     FontAwesomeModule,
     HttpClientModule,
     RouterModule.forRoot(route)

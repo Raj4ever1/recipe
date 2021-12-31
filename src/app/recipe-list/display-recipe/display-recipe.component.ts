@@ -19,6 +19,7 @@ export class DisplayRecipeComponent implements OnInit {
         this.recipeService.itemlist.forEach(ele=>{
           if (ele.id===params['id']){
             this.itemToDisplay=ele;
+            console.log(this.itemToDisplay)
           };
         });
       }
@@ -28,14 +29,7 @@ export class DisplayRecipeComponent implements OnInit {
   addIncridentsToList(){
     let list:shoppingList[]=[];
     this.itemToDisplay.incridents.forEach(element=>{
-      let str = element.trim().split(' ');
-      if (str.length > 2 && String(Number(str[0])) != 'NaN') {
-        list.push({
-          quantity: Number(str[0]),
-          unit: str[1],
-          name: str.splice(2).join(' ').toString(),
-        });
-      };
+      list.push(element);
     });
     if(this.recipeService.ingredientList.length>0){
       this.recipeService.ingredientList=[...this.recipeService.ingredientList,...list];
@@ -44,5 +38,8 @@ export class DisplayRecipeComponent implements OnInit {
     };
     this.recipeService.updateIngridents();
     alert(`The ${this.itemToDisplay.name }'s ingredients added to your Shopping list.`)
+  }
+  deleteRecipe(){
+    this.recipeService.deleteRecipe(this.itemToDisplay.id);
   }
 }

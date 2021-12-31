@@ -1,5 +1,7 @@
+import { Subscription } from 'rxjs';
+import { item } from './../interface.model';
+import { RecipeService } from './../../recipe.service';
 import { Component, Input, OnInit,Output,EventEmitter } from '@angular/core';
-import { item } from '../interface.model';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -7,15 +9,19 @@ import { item } from '../interface.model';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor() { }
+  subscription:Subscription ;
+  constructor(public recipeservice:RecipeService) { }
 
+  itemlist:item[]; 
   ngOnInit(): void {
+  //  this.itemlist=this.recipeservice.itemlist; 
+ this.recipeservice.subject.subscribe(message => {this.itemlist = message; });
+  
   }
-@Input() itemlist:item[];
-@Output() recipeclick=new EventEmitter<number>();
 
-selectrecipe(index:number){
-  this.recipeclick.emit(index);
-
+  
+  ngOnDestroy() {
+    // unsubscribe to ensure no memory leaks
+    //this.subscription.unsubscribe();
 }
 }

@@ -5,8 +5,8 @@
     <div class="col">
         <div>
             <img src={{itemToDisplay.imagelink}} width="100%" height="400px">
-            
             <button class="btn btn-primary my-3" (click)="addIncridentsToList()">Add Ingredients to Shopping List.</button>
+            <button class="btn btn-danger my-3 mx-3" (click)="deleteRecipe()">Delete Recipe</button>
         </div>
     </div>
     <div class="col">
@@ -15,7 +15,7 @@
         </u>
         <ul>
             <li *ngFor=" let incrident of itemToDisplay.incridents">
-                {{incrident}}
+                {{incrident.quantity}} {{incrident.unit}} {{incrident.item}}
             </li>
         </ul>
         <u>

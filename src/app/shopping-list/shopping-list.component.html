@@ -2,9 +2,9 @@
     <div>
         <h3>Shopping List <fa-icon [icon]="faCoffee" (click)="additem()"></fa-icon></h3>
         <ul id="listOfItem">
-            <li *ngFor="let item of recipeService.sortDict(this.recipeService.ingredientList,'name');let i=index">
-                <input type="checkbox"  (change)="itemChecked(item,this.recipeService.ingredientList,this.recipeService.completedList)">
-                <input value="{{item.quantity}} {{item.unit}} {{item.name}}" style="border: none;width: 50%;" placeholder="Quantity Unit ItemName" (change)="itemValueChange(item,$event)" >
+            <li *ngFor="let element of recipeService.sortDict(this.recipeService.ingredientList,'item');let i=index">
+                <input type="checkbox"  (change)="itemChecked(element,this.recipeService.ingredientList,this.recipeService.completedList)">
+                <input value="{{element.quantity}} {{element.unit}} {{element.item}}" style="border: none;width: 50%;" placeholder="Quantity Unit ItemName" (change)="itemValueChange(element,$event)" >
             </li>
         </ul>
     </div>
@@ -13,9 +13,9 @@
         <hr>
         <h3>Completed List</h3>
         <ul>
-            <li *ngFor="let item of recipeService.sortDict(this.recipeService.completedList,'name');let i=index">
-                <input type="checkbox" checked (change)="itemChecked(item,this.recipeService.completedList,this.recipeService.ingredientList)">
-                {{item.quantity}} {{item.unit}} {{item.name}} <fa-icon [icon]="fadumpster" (click)="itemdelete(item)"></fa-icon>
+            <li *ngFor="let element of recipeService.sortDict(this.recipeService.completedList,'item');let i=index">
+                <input type="checkbox" checked (change)="itemChecked(element,this.recipeService.completedList,this.recipeService.ingredientList)">
+                {{element.quantity}} {{element.unit}} {{element.name}} <fa-icon [icon]="fadumpster" (click)="itemdelete(element)"></fa-icon>
             </li>
         </ul>
     </div>
