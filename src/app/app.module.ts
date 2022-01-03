@@ -21,6 +21,7 @@ import { DisplayRecipeComponent } from './recipe-list/display-recipe/display-rec
 import { RecipeService } from './recipe.service';
 import { AddRecipeComponent } from './recipe-list/add-recipe/add-recipe.component';
 import { SearchComponent } from './search/search.component';
+import { AuthComponent } from './auth/auth.component';
 
 const route: Route[] = [
   {
@@ -43,6 +44,7 @@ const route: Route[] = [
     DisplayRecipeComponent,
     AddRecipeComponent,
     SearchComponent,
+    AuthComponent,
   ],
   imports: [
     BrowserModule,
