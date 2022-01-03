@@ -1,7 +1,7 @@
 <div class="d-flex flex-column flex-shrink-0  bg-light" style="width: 210px;">
     <ul class="nav  flex-column ">
-      <li><a [routerLink]="['addRecipe']" class="nav-link link-dark">Add Recipe</a></li>
-      <li *ngFor="let item of this.recipeservice.itemlist;let i=index" routerLinkActive="active">
+      <li [routerLinkActive]="'active'"><a [routerLink]="['addRecipe']" class="nav-link link-dark">Add Recipe</a></li>
+      <li *ngFor="let item of this.recipeservice.itemlist;let i=index" [routerLinkActive]="'active'">
         <a [routerLink]="['display',item.id]" class="nav-link link-dark">
           {{ item.name }}
         </a>
